@@ -1,5 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Dropdown,
+  makeStyles,
+  Option,
+  shorthands,
+  useId,
+  DropdownProps,
+} from "@fluentui/react-components";
+import { observer } from "mobx-react-lite"
+
+const useStyles = makeStyles({
+  root: {
+    // Stack the label above the field with a gap
+    display: "grid",
+    gridTemplateRows: "repeat(1fr)",
+    justifyItems: "start",
+    ...shorthands.gap("2px"),
+    maxWidth: "400px",
+  },
+});
 
 function Header() {
   return (

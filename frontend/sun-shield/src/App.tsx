@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -14,14 +14,14 @@ function App() {
     <div>
       <Header />
       <div style={{ padding: '1rem' }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="uvindex" element={<UVIndex />} />
-          <Route path="protection" element={<Protection />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="terms-and-condition" element={<TermsAndCondition />} />
-          <Route path="privacy" element={<Privacy />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="uvindex" element={<UVIndex />} />
+            <Route path="protection" element={<Protection />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="terms-and-condition" element={<TermsAndCondition />} />
+            <Route path="privacy" element={<Privacy />} />
+          </Routes>
       </div>
       <Footer />
     </div>
