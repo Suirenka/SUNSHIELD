@@ -1,17 +1,17 @@
 import React from "react";
-import UVIndexBar from "../components/UVIndexBar";
-import { makeStyles, ToggleButton } from "@fluentui/react-components";
+import UVIndexBar from "../components/UVInfo/UVIndexBar";
+import { makeStyles, ToggleButton, Tooltip, TooltipProps } from "@fluentui/react-components";
 import {
   bundleIcon,
-  CalendarMonthFilled,
-  CalendarMonthRegular,
+  ServiceBellFilled,
+  ServiceBellRegular,
 } from "@fluentui/react-icons";
 import LocationBox from "../components/LocationBox";
 import UVInfoTable from "../components/UVInfoTable";
 
-const CalendarMonth = bundleIcon(CalendarMonthFilled, CalendarMonthRegular);
+const ServiceBell = bundleIcon(ServiceBellFilled, ServiceBellRegular);
 
-function Home() {
+function Home(props: Partial<TooltipProps>) {
   const [checked1, setChecked1] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
 
@@ -33,13 +33,15 @@ function Home() {
       <LocationBox />
       <UVIndexBar />
       <UVInfoTable />
-      <ToggleButton
-        appearance="outline"
-        icon={<CalendarMonth />}
-        onClick={() => toggleChecked(3)}
-      >
-        Reminder
-      </ToggleButton>
+      <Tooltip content="Turn On/Off Reminder for Going Out" relationship="label" {...props}>
+        <ToggleButton
+          appearance="outline"
+          icon={<ServiceBell />}
+          onClick={() => toggleChecked(3)}
+        >
+          Reminder
+        </ToggleButton>
+      </Tooltip>
     </>
   );
 }

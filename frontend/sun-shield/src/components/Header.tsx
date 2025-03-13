@@ -9,7 +9,7 @@ import { WeatherSunnyLow24Color } from "@fluentui/react-icons";
 const Header = () => {
   return (
     <header style={{
-      background: "#eee",
+      background: "#E8C33080",
       padding: "1rem",
       display: "flex", // Enables horizontal layout
       alignItems: "center", // Vertically align items
