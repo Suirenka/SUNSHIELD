@@ -4,7 +4,7 @@ function Protection() {
   return (
     <div>
       <h2>Protection Page</h2>
-      <p>This is the Protection page.</p>
+      <p>Here should be some protection introduction</p>
     </div>
   );
 }

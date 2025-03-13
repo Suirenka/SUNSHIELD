@@ -1,37 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import {
-  Dropdown,
-  makeStyles,
-  Option,
-  shorthands,
-  useId,
-  DropdownProps,
+  Tab,
+  TabList,
 } from "@fluentui/react-components";
-import { observer } from "mobx-react-lite"
+import { WeatherSunnyLow24Color } from "@fluentui/react-icons";
 
-const useStyles = makeStyles({
-  root: {
-    // Stack the label above the field with a gap
-    display: "grid",
-    gridTemplateRows: "repeat(1fr)",
-    justifyItems: "start",
-    ...shorthands.gap("2px"),
-    maxWidth: "400px",
-  },
-});
-
-function Header() {
+const Header = () => {
   return (
-    <header style={{ background: '#eee', padding: '1rem' }}>
-      <h1>SunShield</h1>
-      <nav>
-        <Link to="/" style={{ marginRight: '1rem' }}>Home</Link>
-        <Link to="/uvindex" style={{ marginRight: '1rem' }}>UV Index</Link>
-        <Link to="/protection">Protection</Link>
-      </nav>
+    <header style={{
+      background: "#eee",
+      padding: "1rem",
+      display: "flex", // Enables horizontal layout
+      alignItems: "center", // Vertically align items
+      justifyContent: "space-between", // Spreads items across the header
+    }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h1 style={{ margin: 0 }}>SunShield</h1>
+        <WeatherSunnyLow24Color style={{ color: "orange", marginLeft: "8px" }} />
+      </div>
+
+      <TabList defaultSelectedValue="home" style={{ display: "flex" }}>
+        <Tab value="home">
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            Home
+          </Link>
+        </Tab>
+        <Tab value="infotab">
+          <Link to="/infotab" style={{ textDecoration: "none", color: "inherit" }}>
+            Info Tab
+          </Link>
+        </Tab>
+        <Tab value="protection">
+          <Link to="/protection" style={{ textDecoration: "none", color: "inherit" }}>
+            Protection
+          </Link>
+        </Tab>
+      </TabList>
     </header>
   );
-}
+};
 
 export default Header;
