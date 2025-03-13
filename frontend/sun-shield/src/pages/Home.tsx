@@ -1,6 +1,6 @@
 import React from "react";
 import UVIndexBar from "../components/UVInfo/UVIndexBar";
-import { makeStyles, ToggleButton, Tooltip, TooltipProps } from "@fluentui/react-components";
+import { Button, ButtonProps, makeStyles, ToggleButton, Tooltip, TooltipProps } from "@fluentui/react-components";
 import {
   bundleIcon,
   ServiceBellFilled,
@@ -30,7 +30,10 @@ function Home(props: Partial<TooltipProps>) {
   );
   return (
     <>
-      <LocationBox />
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <LocationBox />
+        <SearchButton />
+      </div>
       <UVIndexBar />
       <UVInfoTable />
       <Tooltip content="Turn On/Off Reminder for Going Out" relationship="label" {...props}>
@@ -45,5 +48,9 @@ function Home(props: Partial<TooltipProps>) {
     </>
   );
 }
+
+export const SearchButton = (props: ButtonProps) => (
+  <Button {...props}>Search</Button>
+);
 
 export default Home;

@@ -3,7 +3,7 @@ import { GlobeSearch24Regular } from "@fluentui/react-icons";
 import type { SearchBoxProps } from "@fluentui/react-components";
 import { Field, SearchBox, Listbox, Option } from "@fluentui/react-components";
 
-const australianCities = [
+export const australianCities = [
   "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide",
   "Canberra", "Hobart", "Darwin", "Gold Coast", "Newcastle"
 ];
@@ -36,7 +36,7 @@ export const LocationBox = (props: SearchBoxProps) => {
 
   return (
     <Field>
-      <div style={{ position: "relative", width: "300px" }}>
+      <div style={{ position: "relative" }}>
         <SearchBox
           {...props}
           value={inputValue}
