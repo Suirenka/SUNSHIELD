@@ -1,25 +1,50 @@
-import React, { useState } from "react";
-import { GlobeSearch24Regular } from "@fluentui/react-icons";
+import React, { useState, useEffect } from "react";
+import * as XLSX from "xlsx"; // Import xlsx for reading the file
 import type { SearchBoxProps } from "@fluentui/react-components";
 import { Field, SearchBox, Listbox, Option } from "@fluentui/react-components";
 
-export const australianCities = [
-  "Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide",
-  "Canberra", "Hobart", "Darwin", "Gold Coast", "Newcastle"
-];
-
 export const LocationBox = (props: SearchBoxProps) => {
   const [inputValue, setInputValue] = useState("");
-  const [filteredCities, setFilteredCities] = useState(australianCities);
+  const [cities, setCities] = useState<string[]>([]); // Store unique city names
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  // Load Australian city/suburb names from the Excel file
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await fetch("/australian_postcodes.xlsx"); // File must be in 'public/' folder
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: "array" });
+
+        const sheetName = workbook.SheetNames[0]; // Read first sheet
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet); // Convert to JSON
+
+        // Extract city/suburb names (assuming column name is 'Locality')
+        let cityList = jsonData
+          .map((row: any) => row.Locality?.trim()) // Ensure it's a string and remove spaces
+          .filter(Boolean); // Remove empty/null values
+
+        // Remove duplicates using Set
+        cityList = Array.from(new Set(cityList));
+
+        setCities(cityList);
+      } catch (error) {
+        console.error("Error loading cities:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  // Handle input changes & filter city list
   const handleInputChange = (event: React.SyntheticEvent, data: { value: string }) => {
     const value = data.value;
     setInputValue(value);
 
-    // Filter cities based on input
     if (value) {
-      const filtered = australianCities.filter(city =>
+      const filtered = cities.filter(city =>
         city.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCities(filtered);
@@ -42,7 +67,7 @@ export const LocationBox = (props: SearchBoxProps) => {
           value={inputValue}
           onChange={handleInputChange}
           onFocus={() => setShowDropdown(true)}
-          onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Delay to allow click
+          onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
           placeholder="Enter Location"
         />
 
