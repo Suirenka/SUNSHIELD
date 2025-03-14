@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx"; // Import xlsx for reading the file
 import type { SearchBoxProps } from "@fluentui/react-components";
-import { Field, SearchBox, Listbox, Option } from "@fluentui/react-components";
+import { Field, SearchBox, Listbox, Option, Button } from "@fluentui/react-components";
 
-export const LocationBox = (props: SearchBoxProps) => {
+const LocationBox = (props: SearchBoxProps) => {
   const [inputValue, setInputValue] = useState("");
   const [cities, setCities] = useState<string[]>([]); // Store unique city names
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate(); // React Router navigation
 
   // Load Australian city/suburb names from the Excel file
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch("/australian_postcodes.xlsx"); // File must be in 'public/' folder
+        const response = await fetch("/australian_postcodes.xlsx"); // Ensure the file is in 'public/' folder
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer, { type: "array" });
 
         const sheetName = workbook.SheetNames[0]; // Read first sheet
         const sheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(sheet); // Convert to JSON
+        const jsonData: any[] = XLSX.utils.sheet_to_json(sheet); // Convert to JSON
 
         // Extract city/suburb names (assuming column name is 'Locality')
-        let cityList = jsonData
-          .map((row: any) => row.Locality?.trim()) // Ensure it's a string and remove spaces
-          .filter(Boolean); // Remove empty/null values
+        const cityList = jsonData
+          .map((row) => row.Locality?.trim()) // Ensure it's a string and remove spaces
+          .filter(Boolean) as string[]; // Remove empty/null values and typecast
 
         // Remove duplicates using Set
-        cityList = Array.from(new Set(cityList));
-
-        setCities(cityList);
+        setCities(Array.from(new Set(cityList)));
       } catch (error) {
         console.error("Error loading cities:", error);
       }
@@ -44,7 +44,7 @@ export const LocationBox = (props: SearchBoxProps) => {
     setInputValue(value);
 
     if (value) {
-      const filtered = cities.filter(city =>
+      const filtered = cities.filter((city) =>
         city.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredCities(filtered);
@@ -54,33 +54,44 @@ export const LocationBox = (props: SearchBoxProps) => {
     }
   };
 
+  // Handle city selection from dropdown
   const handleCitySelect = (city: string) => {
     setInputValue(city);
     setShowDropdown(false);
   };
 
+  // Handle search button click
+  const handleSearch = () => {
+    if (!inputValue.trim()) return;
+    navigate(`/trends?location=${encodeURIComponent(inputValue)}`);
+  };
+
   return (
     <Field>
-      <div style={{ position: "relative" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", position: "relative" }}>
         <SearchBox
           {...props}
           value={inputValue}
           onChange={handleInputChange}
           onFocus={() => setShowDropdown(true)}
-          onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+          onBlur={() => setTimeout(() => setShowDropdown(false), 150)} // Allow selection before hiding
           placeholder="Enter Location"
         />
 
+        <Button onClick={handleSearch}>Search</Button>
+
         {showDropdown && (
-          <Listbox style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            width: "100%",
-            background: "white",
-            border: "1px solid #ccc",
-            zIndex: 10
-          }}>
+          <Listbox
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              width: "100%",
+              background: "white",
+              border: "1px solid #ccc",
+              zIndex: 10,
+            }}
+          >
             {filteredCities.length > 0 ? (
               filteredCities.map((city) => (
                 <Option key={city} onClick={() => handleCitySelect(city)}>

@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import TermsAndCondition from './pages/TermsAndCondition';
 import Privacy from './pages/Privacy';
 import { FluentProvider, webLightTheme, webDarkTheme } from "@fluentui/react-components";
+import TrendsPage from "./pages/TrendsPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <div style={{ padding: '1rem' }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/trends" element={<TrendsPage />} />
           <Route path="infotab" element={<InfoTab />} />
           <Route path="protection" element={<Protection />} />
           <Route path="contact" element={<Contact />} />
