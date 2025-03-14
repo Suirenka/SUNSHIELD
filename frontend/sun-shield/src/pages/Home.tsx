@@ -1,11 +1,7 @@
 import React from "react";
 import UVIndexBar from "../components/UVInfo/UVIndexBar";
-import { Button, ButtonProps, makeStyles, ToggleButton, Tooltip, TooltipProps } from "@fluentui/react-components";
-import {
-  bundleIcon,
-  ServiceBellFilled,
-  ServiceBellRegular,
-} from "@fluentui/react-icons";
+import { ToggleButton, Tooltip, TooltipProps } from "@fluentui/react-components";
+import { bundleIcon, ServiceBellFilled, ServiceBellRegular } from "@fluentui/react-icons";
 import LocationBox from "../components/LocationBox";
 import UVInfoTable from "../components/UVInfoTable";
 
@@ -28,11 +24,11 @@ function Home(props: Partial<TooltipProps>) {
     },
     [checked1, checked2]
   );
+
   return (
     <>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <LocationBox />
-        <SearchButton />
+        <LocationBox />  {/* ✅ 只保留 LocationBox */}
       </div>
       <UVIndexBar />
       <UVInfoTable />
@@ -48,9 +44,5 @@ function Home(props: Partial<TooltipProps>) {
     </>
   );
 }
-
-export const SearchButton = (props: ButtonProps) => (
-  <Button {...props}>Search</Button>
-);
 
 export default Home;
