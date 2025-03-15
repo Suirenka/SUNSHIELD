@@ -26,9 +26,9 @@ const Header = () => {
             Home
           </Link>
         </Tab>
-        <Tab value="infotab">
-          <Link to="/infotab" style={{ textDecoration: "none", color: "inherit" }}>
-            Info Tab
+        <Tab value="trends">
+          <Link to="/trends" style={{ textDecoration: "none", color: "inherit" }}>
+            UV Trends
           </Link>
         </Tab>
         <Tab value="protection">

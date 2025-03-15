@@ -18,8 +18,7 @@ function App() {
       <div style={{ padding: '1rem', paddingBottom: "80px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/trends" element={<TrendsPage />} />
-          <Route path="infotab" element={<InfoTab />} />
+          <Route path="trends" element={<TrendsPage />} />
           <Route path="protection" element={<Protection />} />
           <Route path="contact" element={<Contact />} />
           <Route path="terms-and-condition" element={<TermsAndCondition />} />
