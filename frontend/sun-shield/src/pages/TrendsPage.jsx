@@ -24,6 +24,7 @@ const TrendsPage = () => {
   const [uvWarning, setUvWarning] = useState("");
   const [sunscreenReminder, setSunscreenReminder] = useState("");
 
+  // Get past N days' dates
   const getPastDates = (days) => {
     const dates = [];
     for (let i = days - 1; i >= 0; i--) {
@@ -34,6 +35,7 @@ const TrendsPage = () => {
     return dates;
   };
 
+  // Fetch UV data from Flask API
   useEffect(() => {
     const fetchUVData = async () => {
       setLoading(true);
@@ -54,6 +56,7 @@ const TrendsPage = () => {
             const numDays = timeRange === "weekly" ? 7 : 30;
             const dates = getPastDates(numDays);
 
+            // Ensure UV index remains within a reasonable range
             const generatedData = dates.map((date) => ({
               date,
               uvIndex: Math.max(0, Math.min(11, uvIndex + Math.floor(Math.random() * 3 - 1))),
@@ -61,16 +64,18 @@ const TrendsPage = () => {
 
             setUvData(generatedData);
 
+            // ⚠️ High UV index warning
             if (uvIndex > 6) {
-              setUvWarning("⚠️ 高 UV 指数！请减少户外暴露时间并做好防护！");
+              setUvWarning("⚠️ High UV Index! Reduce outdoor exposure and take precautions!");
             }
 
+            // 🧴 Sunscreen reminder
             if (uvIndex > 8) {
-              setSunscreenReminder("🔥 极端高危！请避免长时间户外活动！");
+              setSunscreenReminder("🔥 Extreme risk! Avoid prolonged outdoor activities!");
             } else if (uvIndex > 6) {
-              setSunscreenReminder("🧴 请立即涂防晒霜并采取防护措施！");
+              setSunscreenReminder("🧴 Apply sunscreen immediately and take protective measures!");
             } else if (uvIndex > 3) {
-              setSunscreenReminder("☀️ 建议涂防晒霜！");
+              setSunscreenReminder("☀️ Consider applying sunscreen!");
             }
           } else {
             setError("Invalid UV data received.");
@@ -93,6 +98,7 @@ const TrendsPage = () => {
 
   return (
     <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
+      {/* Back to Home + Time Range Selection */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
         <Button appearance="primary" onClick={() => navigate("/")}>
           ← Back to Home
@@ -104,16 +110,21 @@ const TrendsPage = () => {
         </Dropdown>
       </div>
 
+      {/* Page Title */}
       <h2 style={{ fontWeight: "bold", fontSize: "24px", marginBottom: "10px" }}>
         Historical UV Trends: <span style={{ fontWeight: "normal" }}> {locationParam}</span>
       </h2>
 
+      {/* ⚠️ High UV Warning */}
       {uvWarning && <p style={{ color: "red", fontSize: "18px", fontWeight: "bold" }}>{uvWarning}</p>}
 
+      {/* 🧴 Sunscreen Reminder */}
       {sunscreenReminder && <p style={{ color: "orange", fontSize: "16px" }}>{sunscreenReminder}</p>}
 
+      {/* Error Handling */}
       {error && <p style={{ color: "red", fontSize: "16px" }}>{error}</p>}
 
+      {/* UV Line Chart */}
       {loading ? (
         <Spinner label="Loading UV data..." />
       ) : uvData.length > 0 ? (
