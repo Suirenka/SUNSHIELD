@@ -15,7 +15,7 @@ function App() {
   return (
     <FluentProvider theme={webLightTheme}>
       <Header />
-      <div style={{ padding: '1rem' }}>
+      <div style={{ padding: '1rem', paddingBottom: "80px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/trends" element={<TrendsPage />} />

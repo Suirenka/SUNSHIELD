@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer style={{
       background: '#3C361F80', padding: '1rem', marginTop: 'auto', position: "fixed",
-      bottom: "0", width: "100%"
+      bottom: "0", width: "100%", height: "50px"
     }}>
       <nav>
         <Link to="/contact" style={{ marginRight: '1rem' }}>Contact US</Link>
