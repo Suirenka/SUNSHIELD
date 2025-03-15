@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <footer style={{
-      background: '#3C361F80', padding: '1rem', marginTop: 'auto', position: "fixed",
+      background: '#3C361F80', padding: '1rem', marginTop: 'auto',
       bottom: "0", width: "100%", height: "50px"
     }}>
       <nav>

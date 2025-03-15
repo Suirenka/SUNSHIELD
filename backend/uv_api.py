@@ -7,7 +7,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-BASE_DIR = "/Users/shrine/Desktop/SUNSHIELD/frontend/sun-shield/public/"
+BASE_DIR = "../frontend/sun-shield/public/"
 POSTCODES_FILE = os.path.join(BASE_DIR, "australian_postcodes.xlsx")
 
 try:
@@ -65,6 +65,9 @@ def get_uv_index(lat, lon):
     except Exception as e:
         return f"An error occurred: {e}"
 
+@app.route("/")
+def home():
+    return jsonify({"message": "Flask is working!"})
 
 @app.route("/get_uv", methods=["GET"])
 def get_uv():
