@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -8,7 +8,7 @@ import Protection from './pages/Protection';
 import Contact from './pages/Contact';
 import TermsAndCondition from './pages/TermsAndCondition';
 import Privacy from './pages/Privacy';
-import { FluentProvider, webLightTheme, webDarkTheme } from "@fluentui/react-components";
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import TrendsPage from "./pages/TrendsPage";
 
 function App() {
