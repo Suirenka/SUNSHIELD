@@ -4,7 +4,12 @@ import * as XLSX from "xlsx";
 import type { SearchBoxProps } from "@fluentui/react-components";
 import { Field, SearchBox, Listbox, Option, Button } from "@fluentui/react-components";
 
-const LocationBox = (props: SearchBoxProps) => {
+// Define props interface
+interface LocationBoxProps extends SearchBoxProps {
+  onLocationChange?: (location: string) => void;
+}
+
+const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props }) => {
   const [inputValue, setInputValue] = useState("");
   const [cities, setCities] = useState<string[]>([]);
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
@@ -13,6 +18,7 @@ const LocationBox = (props: SearchBoxProps) => {
   const [lastSearchTime, setLastSearchTime] = useState<number | null>(null);
   const navigate = useNavigate();
 
+  // Load city data from Excel file
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -30,6 +36,7 @@ const LocationBox = (props: SearchBoxProps) => {
     fetchCities();
   }, []);
 
+  // Handle user input change
   const handleInputChange = (event: React.SyntheticEvent, data: { value: string }) => {
     const value = data.value.replace(/[^a-zA-Z0-9 ]/g, ""); 
     setInputValue(value);
@@ -42,11 +49,18 @@ const LocationBox = (props: SearchBoxProps) => {
     }
   };
 
+  // Handle city selection
   const handleCitySelect = (city: string) => {
     setInputValue(city);
     setShowDropdown(false);
+    
+    // Notify parent component (Home.tsx) about location change
+    if (onLocationChange) {
+      onLocationChange(city);
+    }
   };
 
+  // Handle search button click
   const handleSearch = () => {
     if (!inputValue.trim()) return;
 
@@ -62,6 +76,12 @@ const LocationBox = (props: SearchBoxProps) => {
 
     setSearchCount(searchCount + 1);
     setLastSearchTime(now);
+
+    // Notify parent component (Home.tsx) about location change
+    if (onLocationChange) {
+      onLocationChange(inputValue);
+    }
+
     navigate(`/trends?location=${encodeURIComponent(inputValue)}`);
   };
 
