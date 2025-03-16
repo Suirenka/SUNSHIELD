@@ -10,11 +10,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Dropdown, Option, Tooltip, Button, Spinner } from "@fluentui/react-components";
-import UVInfoTable from "../components/UVInfoTable"; import UVIndexBar from "../components/UVInfo/UVIndexBar";
+import UVInfoTable from "../components/UVInfoTable";
+import UVIndexBar from "../components/UVInfo/UVIndexBar";
 import { ToggleButton, TooltipProps } from "@fluentui/react-components";
 import { bundleIcon, ServiceBellFilled, ServiceBellRegular } from "@fluentui/react-icons";
 import LocationBox from "../components/LocationBox";
-
 
 const ServiceBell = bundleIcon(ServiceBellFilled, ServiceBellRegular);
 
@@ -29,6 +29,7 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
   const [error, setError] = useState("");
   const [uvWarning, setUvWarning] = useState("");
   const [sunscreenReminder, setSunscreenReminder] = useState("");
+  const [uvIndex, setUvIndex] = useState<number | null>(null); // ✅ Add UV Index state
 
   // Get past N days' dates
   const getPastDates = (days: number) => {
@@ -41,23 +42,8 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
     return dates;
   };
 
-  const [checked1, setChecked1] = React.useState(false);
-  const [checked2, setChecked2] = React.useState(false);
-  const toggleChecked = React.useCallback(
-    (buttonIndex: number) => {
-      switch (buttonIndex) {
-        case 1:
-          setChecked1(!checked1);
-          break;
-        case 2:
-          setChecked2(!checked2);
-          break;
-      }
-    },
-    [checked1, checked2]
-  );
+  
 
-  // Fetch UV data from Flask API
   useEffect(() => {
     const fetchUVData = async () => {
       setLoading(true);
@@ -72,31 +58,32 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
         console.log("API Response:", data);
 
         if (response.ok) {
-          const uvIndex = data.uv_index;
+          const uvIndexValue = data.uv_index;
+          setUvIndex(uvIndexValue); // ✅ Store UV Index in state
 
-          if (typeof uvIndex === "number") {
+          if (typeof uvIndexValue === "number") {
             const numDays = timeRange === "weekly" ? 7 : 30;
             const dates = getPastDates(numDays);
 
             // Ensure UV index remains within a reasonable range
             const generatedData = dates.map((date) => ({
               date,
-              uvIndex: Math.max(0, Math.min(11, uvIndex + Math.floor(Math.random() * 3 - 1))),
+              uvIndex: Math.max(0, Math.min(11, uvIndexValue + Math.floor(Math.random() * 3 - 1))),
             }));
 
             setUvData(generatedData);
 
             // ⚠️ High UV index warning
-            if (uvIndex > 6) {
+            if (uvIndexValue > 6) {
               setUvWarning("⚠️ High UV Index! Reduce outdoor exposure and take precautions!");
             }
 
             // 🧴 Sunscreen reminder
-            if (uvIndex > 8) {
+            if (uvIndexValue > 8) {
               setSunscreenReminder("🔥 Extreme risk! Avoid prolonged outdoor activities!");
-            } else if (uvIndex > 6) {
+            } else if (uvIndexValue > 6) {
               setSunscreenReminder("🧴 Apply sunscreen immediately and take protective measures!");
-            } else if (uvIndex > 3) {
+            } else if (uvIndexValue > 3) {
               setSunscreenReminder("☀️ Consider applying sunscreen!");
             }
           } else {
@@ -119,17 +106,26 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
   }, [locationParam, timeRange]);
 
   return (
-    <><UVIndexBar />
-      <UVInfoTable />
+    <>
+      {/* ✅ Pass correct props */}
+      {uvIndex !== null ? (
+        <UVIndexBar location={locationParam} uvIndex={uvIndex} />
+      ) : (
+        <p>Loading UV index...</p>
+      )}
+      
+      <UVInfoTable location={locationParam} uvIndex={uvIndex} />
+
+
       <Tooltip content="Turn On/Off Reminder for Going Out" relationship="label" {...props}>
         <ToggleButton
           appearance="outline"
           icon={<ServiceBell />}
-          onClick={() => toggleChecked(3)}
         >
           Reminder
         </ToggleButton>
       </Tooltip>
+
       <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
         {/* Back to Home + Time Range Selection */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>

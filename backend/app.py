@@ -1,11 +1,18 @@
-from flask import (Flask, redirect, render_template, request, jsonify,
-                   send_from_directory, url_for)
+from flask import (
+    Flask,
+    redirect,
+    render_template,
+    request,
+    jsonify,
+    send_from_directory,
+    url_for,
+)
 import pandas as pd
 import requests
 import os
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='build/static', template_folder='build')
+app = Flask(__name__, static_folder="build/static", template_folder="build")
 CORS(app)
 
 BASE_DIR = "./build"
@@ -39,7 +46,6 @@ def get_latlong(place):
         return f"Error: Column {e} not found in dataset"
 
 
-
 import time
 
 UV_CACHE = {}
@@ -67,32 +73,40 @@ def get_uv_index(lat, lon):
     except Exception as e:
         return f"An error occurred: {e}"
 
-@app.route('/')
+
+@app.route("/")
 def index():
-   print('Request for index page received')
-   return render_template('index.html')
+    print("Request for index page received")
+    return render_template("index.html")
+
 
 from flask import send_from_directory
 
+
 # Serve manifest.json from the build folder
-@app.route('/manifest.json')
+@app.route("/manifest.json")
 def manifest():
-    return send_from_directory(app.template_folder, 'manifest.json')
+    return send_from_directory(app.template_folder, "manifest.json")
+
 
 # Serve australian_postcodes.xlsx from the build folder
-@app.route('/australian_postcodes.xlsx')
+@app.route("/australian_postcodes.xlsx")
 def postcodes_file():
     return send_from_directory("build", "australian_postcodes.xlsx")
 
 
-@app.route('/favicon.ico')
+@app.route("/favicon.ico")
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
+
 
 @app.route("/get_uv", methods=["GET"])
 def get_uv():
-    print('Request for get uv received')
+    print("Request for get uv received")
     location = request.args.get("location")
     if not location:
         return jsonify({"error": "Missing 'location' parameter"}), 400
