@@ -11,6 +11,7 @@ import pandas as pd
 import requests
 import os
 from flask_cors import CORS
+import time
 
 app = Flask(__name__, static_folder="build/static", template_folder="build")
 CORS(app)
@@ -31,7 +32,6 @@ except Exception as e:
 API_KEY = "osNpUetlOzNcdtk4tHOgBjS0jlunnDXk"
 BASE_URL = "https://api.tomorrow.io/v4/weather/realtime"
 
-
 def get_latlong(place):
     if postcodes_dt is None:
         return "Error: Postcodes dataset not loaded"
@@ -45,16 +45,13 @@ def get_latlong(place):
     except KeyError as e:
         return f"Error: Column {e} not found in dataset"
 
-
-import time
-
 UV_CACHE = {}
-
 
 def get_uv_index(lat, lon):
     cache_key = f"{lat},{lon}"
     current_time = time.time()
 
+    # Check if we have cached data that's still valid (10 minutes)
     if cache_key in UV_CACHE:
         cached_data = UV_CACHE[cache_key]
         if current_time - cached_data["timestamp"] < 600:
@@ -73,27 +70,18 @@ def get_uv_index(lat, lon):
     except Exception as e:
         return f"An error occurred: {e}"
 
-
 @app.route("/")
 def index():
     print("Request for index page received")
     return render_template("index.html")
 
-
-from flask import send_from_directory
-
-
-# Serve manifest.json from the build folder
 @app.route("/manifest.json")
 def manifest():
     return send_from_directory(app.template_folder, "manifest.json")
 
-
-# Serve australian_postcodes.xlsx from the build folder
 @app.route("/australian_postcodes.xlsx")
 def postcodes_file():
     return send_from_directory("build", "australian_postcodes.xlsx")
-
 
 @app.route("/favicon.ico")
 def favicon():
@@ -102,7 +90,6 @@ def favicon():
         "sunny_icon.svg",
         mimetype="image/vnd.microsoft.icon",
     )
-
 
 @app.route("/get_uv", methods=["GET"])
 def get_uv():
@@ -118,6 +105,37 @@ def get_uv():
     uv_index = get_uv_index(latlong[0], latlong[1])
     return jsonify({"location": location, "uv_index": uv_index})
 
+############################
+# Routes to Serve Images
+############################
+
+@app.route("/UV1.png")
+def uv1():
+    return send_from_directory("build", "UV1.png")
+
+@app.route("/UV2.png")
+def uv2():
+    return send_from_directory("build", "UV2.png")
+
+@app.route("/Incidence1.png")
+def incidence1():
+    return send_from_directory("build", "Incidence1.png")
+
+@app.route("/Incidence2.png")
+def incidence2():
+    return send_from_directory("build", "Incidence2.png")
+
+@app.route("/Mortality1.png")
+def mortality1():
+    return send_from_directory("build", "Mortality1.png")
+
+@app.route("/Mortality2.png")
+def mortality2():
+    return send_from_directory("build", "Mortality2.png")
+
+############################
+# End of Image Routes
+############################
 
 if __name__ == "__main__":
     app.run(debug=True)
