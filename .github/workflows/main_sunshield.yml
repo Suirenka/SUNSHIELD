@@ -52,7 +52,7 @@ jobs:
       # 3) Zip everything you need to run your backend (including the React build folder)
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip backend requirements.txt
+          zip -r release.zip backend
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
