@@ -1,4 +1,4 @@
-import { Text, Link } from '@fluentui/react-components';
+import { Text } from '@fluentui/react-components';
 import { Stack } from '@fluentui/react';
 
 const TermsAndCondition = () => {
@@ -70,10 +70,7 @@ const TermsAndCondition = () => {
         4. Privacy and Data Collection
       </Text>
       <Text as="p" size={400}>
-        Your privacy is important to us. By using our services, you agree to the collection and usage of data as outlined in our{' '}
-        <Link href="/privacy" style={{ color: '#007bff', textDecoration: 'none' }}>
-          Privacy Policy
-        </Link>.
+        Your privacy is important to us. By using our services, you agree to the collection and usage of data as outlined in our Privacy Policy.
       </Text>
 
       <Text as="h2" weight="semibold" size={500}>
