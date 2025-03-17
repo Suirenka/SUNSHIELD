@@ -47,7 +47,7 @@ jobs:
           source venv/bin/activate
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r backend/requirements.txt
 
       # 3) Zip everything you need to run your backend (including the React build folder)
       - name: Zip artifact for deployment
