@@ -14,7 +14,6 @@ import UVInfoTable from "../components/UVInfoTable";
 import UVIndexBar from "../components/UVInfo/UVIndexBar";
 import { ToggleButton, TooltipProps } from "@fluentui/react-components";
 import { bundleIcon, ServiceBellFilled, ServiceBellRegular } from "@fluentui/react-icons";
-import LocationBox from "../components/LocationBox";
 
 const ServiceBell = bundleIcon(ServiceBellFilled, ServiceBellRegular);
 
@@ -94,7 +93,7 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
           setError(data.error || "Failed to fetch UV data.");
           setUvData([]);
         }
-      } catch (err) {
+      } catch {
         setError("Error fetching data. Please check your connection.");
         setUvData([]);
       }
