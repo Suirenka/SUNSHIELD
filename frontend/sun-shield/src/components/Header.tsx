@@ -11,9 +11,9 @@ const Header = () => {
     <header style={{
       background: "#E8C33080",
       padding: "1rem",
-      display: "flex", // Enables horizontal layout
-      alignItems: "center", // Vertically align items
-      justifyContent: "space-between", // Spreads items across the header
+      display: "flex", 
+      alignItems: "center", 
+      justifyContent: "space-between",
     }}>
       <div style={{ display: "flex", alignItems: "center" }}>
         <h1 style={{ margin: 0 }}>SunShield</h1>

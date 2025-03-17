@@ -1,54 +1,89 @@
-import React from "react";
+import { Text, Link } from '@fluentui/react-components';
+import { Stack } from '@fluentui/react';
 
-function TermsAndCondition() {
+const TermsAndCondition = () => {
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "auto" }}>
-      <h2>Terms and Conditions</h2>
-      <p>Last Updated: March 2025</p>
+    <Stack
+      tokens={{ padding: '20px', childrenGap: '20px' }}
+      style={{ maxWidth: '800px', margin: 'auto' }}
+    >
+      <Text as="h1" weight="semibold" size={600}>
+        Terms and Conditions
+      </Text>
+      <Text as="p" size={400}>
+        Last Updated: March 2025
+      </Text>
 
-      <h3>1. Introduction</h3>
-      <p>
+      <Text as="h2" weight="semibold" size={500}>
+        1. Introduction
+      </Text>
+      <Text as="p" size={400}>
         Welcome to SunShield. By accessing or using our services, you agree to be bound by the following Terms and Conditions.
-      </p>
+      </Text>
 
-      <h3>2. Use of Services</h3>
-      <ul>
-        <li>You may use SunShield for personal, non-commercial purposes.</li>
-        <li>Misuse, modification, or disruption of the service is strictly prohibited.</li>
-        <li>SunShield provides general sun protection advice, but it should not be considered as medical advice.</li>
+      <Text as="h2" weight="semibold" size={500}>
+        2. Use of Services
+      </Text>
+      <ul style={{ paddingLeft: '20px' }}>
+        <li>
+          <Text as="p" size={400}>
+            You may use SunShield for personal, non-commercial purposes.
+          </Text>
+        </li>
+        <li>
+          <Text as="p" size={400}>
+            Misuse, modification, or disruption of the service is strictly prohibited.
+          </Text>
+        </li>
+        <li>
+          <Text as="p" size={400}>
+            SunShield provides general sun protection advice, but it should not be considered as medical advice.
+          </Text>
+        </li>
       </ul>
 
-      <h3>3. Limitation of Liability</h3>
-      <p>
+      <Text as="h2" weight="semibold" size={500}>
+        3. Limitation of Liability
+      </Text>
+      <Text as="p" size={400}>
         While we strive to provide accurate UV index data and recommendations, SunShield is not responsible for:
-      </p>
-      <ul>
-        <li>Any health-related outcomes resulting from sun exposure.</li>
-        <li>Inaccuracies in UV data provided by third-party sources.</li>
-        <li>Service interruptions or technical errors.</li>
+      </Text>
+      <ul style={{ paddingLeft: '20px' }}>
+        <li>
+          <Text as="p" size={400}>
+            Any health-related outcomes resulting from sun exposure.
+          </Text>
+        </li>
+        <li>
+          <Text as="p" size={400}>
+            Inaccuracies in UV data provided by third-party sources.
+          </Text>
+        </li>
+        <li>
+          <Text as="p" size={400}>
+            Service interruptions or technical errors.
+          </Text>
+        </li>
       </ul>
 
-      <h3>4. Privacy and Data Collection</h3>
-      <p>
-        Your privacy is important to us. By using our services, you agree to the collection and usage of data as outlined in our 
-        <a href="/privacy" style={{ color: "#007bff", textDecoration: "none" }}> Privacy Policy</a>.
-      </p>
+      <Text as="h2" weight="semibold" size={500}>
+        4. Privacy and Data Collection
+      </Text>
+      <Text as="p" size={400}>
+        Your privacy is important to us. By using our services, you agree to the collection and usage of data as outlined in our{' '}
+        <Link href="/privacy" style={{ color: '#007bff', textDecoration: 'none' }}>
+          Privacy Policy
+        </Link>.
+      </Text>
 
-      <h3>5. Changes to Terms</h3>
-      <p>
+      <Text as="h2" weight="semibold" size={500}>
+        5. Changes to Terms
+      </Text>
+      <Text as="p" size={400}>
         We reserve the right to update these Terms and Conditions at any time. Continued use of our services after updates constitutes acceptance of the changes.
-      </p>
-
-      <h3>6. Contact Us</h3>
-      <p>
-        If you have any questions or concerns regarding these terms, please contact us at:
-        <br />
-        📧 Email: support@sunshield.com
-        <br />
-        📍 Address: 123 SunShield Avenue, Melbourne, Australia
-      </p>
-    </div>
+      </Text>
+    </Stack>
   );
-}
+};
 
 export default TermsAndCondition;

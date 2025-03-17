@@ -99,7 +99,7 @@ def postcodes_file():
 def favicon():
     return send_from_directory(
         os.path.join(app.root_path, "static"),
-        "favicon.ico",
+        "sunny_icon.svg",
         mimetype="image/vnd.microsoft.icon",
     )
 
