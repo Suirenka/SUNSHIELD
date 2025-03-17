@@ -51,7 +51,7 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
       setSunscreenReminder("");
 
       try {
-        const response = await fetch(`http://127.0.0.1:5000/get_uv?location=${locationParam}`);
+        const response = await fetch(`https://sunshield.azurewebsites.net/get_uv?location=${locationParam}`);
         const data = await response.json();
 
         console.log("API Response:", data);

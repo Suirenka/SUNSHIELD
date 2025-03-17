@@ -14,7 +14,7 @@ from flask_cors import CORS
 import time
 
 app = Flask(__name__, static_folder="build/static", template_folder="build")
-CORS(app)
+CORS(app, origins="https://sunshield.azurewebsites.net")
 
 BASE_DIR = "./build"
 POSTCODES_FILE = os.path.join(BASE_DIR, "australian_postcodes.xlsx")
@@ -88,7 +88,7 @@ def favicon():
     return send_from_directory(
         os.path.join(app.root_path, "static"),
         "sunny_icon.svg",
-        mimetype="image/vnd.microsoft.icon",
+        mimetype="image/svg+xml",
     )
 
 @app.route("/get_uv", methods=["GET"])
