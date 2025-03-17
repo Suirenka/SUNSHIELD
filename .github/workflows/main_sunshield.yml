@@ -30,7 +30,7 @@ jobs:
       - name: Build React frontend
         run: |
           cd frontend/sun-shield
-          npm ci
+          npm install --legacy-peer-deps
           npm run build
           # Copy the build folder to the backend folder
           cp -r build ../../backend
