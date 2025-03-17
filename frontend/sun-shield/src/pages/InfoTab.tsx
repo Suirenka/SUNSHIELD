@@ -16,14 +16,14 @@ const InfoTab = () => {
           <TableRow>
             <TableCell>
               <img
-                src="/UV1.png"
+                src={`${process.env.PUBLIC_URL}/UV1.png`}
                 alt="UV Chart 1"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
             </TableCell>
             <TableCell>
               <img
-                src="/UV2.png"
+                src={`${process.env.PUBLIC_URL}/UV2.png`}
                 alt="UV Chart 2"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
@@ -43,14 +43,14 @@ const InfoTab = () => {
           <TableRow>
             <TableCell>
               <img
-                src="/Incidence1.png"
+                src={`${process.env.PUBLIC_URL}/Incidence1.png`}
                 alt="Incidence Chart 1"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
             </TableCell>
             <TableCell>
               <img
-                src="/Incidence2.png"
+                src={`${process.env.PUBLIC_URL}/Incidence2.png`}
                 alt="Incidence Chart 2"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
@@ -69,14 +69,14 @@ const InfoTab = () => {
           <TableRow>
             <TableCell>
               <img
-                src="/Mortality1.png"
+                src={`${process.env.PUBLIC_URL}/Mortality1.png`}
                 alt="Mortality Chart 1"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
             </TableCell>
             <TableCell>
               <img
-                src="/Mortality2.png"
+                src={`${process.env.PUBLIC_URL}/Mortality2.png`}
                 alt="Mortality Chart 2"
                 style={{ width: '100%', maxWidth: '100%' }}
               />
