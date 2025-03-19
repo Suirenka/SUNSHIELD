@@ -109,29 +109,44 @@ def get_uv():
 # Routes to Serve Images
 ############################
 
+def handle_picture_request(filename):
+    return send_from_directory("build", filename)
+
 @app.route("/UV1.png")
 def uv1():
-    return send_from_directory("build", "UV1.png")
+    return handle_picture_request("UV1.png")
 
 @app.route("/UV2.png")
 def uv2():
-    return send_from_directory("build", "UV2.png")
+    return handle_picture_request("UV2.png")
 
 @app.route("/Incidence1.png")
 def incidence1():
-    return send_from_directory("build", "Incidence1.png")
+    return handle_picture_request("Incidence1.png")
 
 @app.route("/Incidence2.png")
 def incidence2():
-    return send_from_directory("build", "Incidence2.png")
+    return handle_picture_request("Incidence2.png")
 
 @app.route("/Mortality1.png")
 def mortality1():
-    return send_from_directory("build", "Mortality1.png")
+    return handle_picture_request("Mortality1.png")
 
 @app.route("/Mortality2.png")
 def mortality2():
-    return send_from_directory("build", "Mortality2.png")
+    return handle_picture_request("Mortality2.png")
+
+@app.route("/sunset_1.jpeg")
+def sunset_1():
+    return handle_picture_request("sunset_1.jpeg")
+
+@app.route("/sunset_2.jpeg")
+def sunset_2():
+    return handle_picture_request("sunset_2.jpeg")
+
+@app.route("/sunset_bg.jpeg")
+def sunset_bg():
+    return handle_picture_request("sunset_bg.jpeg")
 
 ############################
 # End of Image Routes
