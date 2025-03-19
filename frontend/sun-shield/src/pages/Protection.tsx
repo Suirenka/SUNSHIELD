@@ -1,8 +1,14 @@
-import { Title3, Text, Body1 } from '@fluentui/react-components';
+import { Title3, Text, Body1, Button } from '@fluentui/react-components';
 import { Stack } from '@fluentui/react';
+import { useNavigate } from 'react-router-dom';
 
 function Protection() {
+  const navigate = useNavigate();
   return (
+    <>
+      <Button appearance="primary" onClick={() => navigate("/")}>
+        ← Back to Home
+      </Button>
       <Stack tokens={{ childrenGap: 20, padding: 20 }}>
         <Title3>Sun Protection: Your Guide to Safe and Healthy Sun Exposure</Title3>
         <Body1>
@@ -49,6 +55,7 @@ function Protection() {
           </Body1>
         </Stack>
       </Stack>
+    </>
   );
 }
 

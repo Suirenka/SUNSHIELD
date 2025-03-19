@@ -1,89 +1,184 @@
-import React from "react";
+import * as React from "react";
+import {
+  makeStyles,
+  shorthands,
+  tokens,
+  Title1,
+  Subtitle1,
+  Body1,
+  Button,
+  Divider
+} from "@fluentui/react-components";
 import LocationBox from "../components/LocationBox";
+import { useNavigate } from "react-router-dom";
 
-function Home() {
+const useStyles = makeStyles({
+  Container: {
+    backgroundImage: "url('/sunset_bg.jpeg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    minHeight: "40vh",
+    display: "flex",
+    flexDirection: "column",
+    ...shorthands.padding("20px"),
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    color: tokens.colorNeutralForegroundOnBrand,
+  },
+  title: {
+    marginBottom: "1rem",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+  },
+  subtitle: {
+    maxWidth: "600px",
+    margin: "0 auto",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+  },
+  locationContainer: {
+    ...shorthands.padding("2rem"),
+    maxWidth: "600px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  heading2: {
+    marginBottom: "1rem",
+  },
+  paragraph: {
+    marginBottom: "1.5rem",
+  },
+  locationBoxWrapper: {
+    display: "flex",
+    gap: "1rem",
+    alignItems: "center",
+  },
+  infoSection: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    ...shorthands.gap("1rem"),
+    ...shorthands.padding("2rem"),
+    "@media(max-width: 768px)": {
+      flexDirection: "column",
+      textAlign: "center",
+    },
+  },
+  leftColumn: {
+    flex: "1 1 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  risksTitle: {
+    marginBottom: "0.5rem",
+  },
+  risksParagraph: {
+    marginBottom: "1rem",
+    maxWidth: "500px",
+  },
+  buttonRow: {
+    display: "flex",
+    gap: "1rem",
+    marginTop: "1rem",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  rightColumn: {
+    flex: "1 1 auto",
+    display: "flex",
+    justifyContent: "center",
+  },
+  infoImage: {
+    borderRadius: "8px",
+    maxHeight: "40vh",
+  },
+});
+
+export const Home = () => {
   return (
-    <div 
-      style={{ 
-        minHeight: "100vh", 
-        backgroundImage: "url(/2.jpeg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "2rem",
-      }}
-    >
-      <div 
-        style={{ 
-          
-          padding: "2rem", 
-          borderRadius: "12px", 
-          maxWidth: "600px", 
-        }}
-      >
-        <img 
-          src="/1.jpeg" 
-          alt="Sun 1" 
-          style={{ 
-            width: "100px", 
-            height: "100px", 
-            marginBottom: "1rem",
-            borderRadius: "50%"
-          }} 
-        />
+    <>
+      <Banner />
+      <UvRisksBox />
+      <ProtectionBox />
+      <Divider />
+      <LocationSearch />
+    </>
+  );
+};
 
-        <h3 
-          style={{ 
-            background: "linear-gradient(90deg, #FF8C00, #FF4500)", 
-            WebkitBackgroundClip: "text", 
-            WebkitTextFillColor: "transparent", 
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            lineHeight: "1.4", 
-            display: "inline-block", 
-            padding: "0.2rem 0" 
-          }}
-        >
-          ☀ Stay Safe Under the Sun! ☀
-        </h3>
+const Banner = () => {
+  const styles = useStyles();
+  return (
+    <div className={styles.Container}>
+      <Title1 className={styles.title}>Sunshield</Title1>
+      <Subtitle1 className={styles.subtitle}>Stay Safe Under the Sun!</Subtitle1>
+    </div>
+  );
+};
 
-        <p style={{ fontSize: "1rem", color: "#444", lineHeight: "1.8", marginBottom: "1.5rem" }}>
-          🌞 <strong>UV rays are invisible but powerful!</strong> Long-term exposure can lead to <strong>sunburn, premature aging, and even skin cancer.</strong>
-          <br /><br />
-          🏖️ <strong>Protect yourself</strong> by checking the UV index before heading out. Wear <strong>sunscreen</strong>, put on <strong>protective clothing</strong>, and <strong>seek shade</strong> when needed.
-          <br /><br />
-          ☂️ <strong>Be sun-smart, stay safe, and enjoy the outdoors responsibly!</strong>
-        </p>
-
-        <h2 style={{ marginBottom: "1rem", fontSize: "1.4rem", fontWeight: "bold", color: "#333" }}>
-          Find Your Local UV Index
-        </h2>
-        <p style={{ marginBottom: "2.5rem", color: "#555" }}>
-          Enter your location below to get real-time UV Index data and personalized sun protection tips.
-        </p>
-
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center", justifyContent: "center", marginTop: "2rem" }}>
-          <LocationBox />
+const UvRisksBox = () => {
+  const styles = useStyles();
+  const navigate = useNavigate();
+  return (
+    <div className={styles.infoSection}>
+      <div className={styles.leftColumn}>
+        <Title1 className={styles.risksTitle}>UV Risks</Title1>
+        <Body1 className={styles.risksParagraph}>
+          Prolonged exposure to UV rays can cause sunburn, premature aging, and even skin cancer. It is crucial to protect yourself whenever you are outdoors.
+        </Body1>
+        <div className={styles.buttonRow}>
+          <Button appearance="primary" onClick={() => navigate("/infotab")}>
+            Learn More
+          </Button>
         </div>
-
-        <img 
-          src="/3.jpeg" 
-          alt="Sun 3" 
-          style={{ 
-            width: "100px", 
-            height: "100px", 
-            marginTop: "1rem",
-            borderRadius: "50%" 
-          }} 
-        />
+      </div>
+      <div className={styles.rightColumn}>
+        <img src="/sunset_1.jpeg" alt="Sunset" className={styles.infoImage} />
       </div>
     </div>
   );
-}
+};
+
+const ProtectionBox = () => {
+  const styles = useStyles();
+  const navigate = useNavigate();
+  return (
+    <div className={styles.infoSection}>
+      <div className={styles.rightColumn}>
+        <img src="/sunset_2.jpeg" alt="Protection" className={styles.infoImage} />
+      </div>
+      <div className={styles.leftColumn}>
+        <Title1 className={styles.risksTitle}>Protection</Title1>
+        <Body1 className={styles.risksParagraph}>
+          Protect yourself by checking the UV index before heading out. Wear sunscreen, put on protective clothing, and seek shade when needed.
+        </Body1>
+        <div className={styles.buttonRow}>
+          <Button appearance="primary" onClick={() => navigate("/protection")}>
+            Learn More
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const LocationSearch = () => {
+  const styles = useStyles();
+  return (
+    <div className={styles.locationContainer}>
+      <h2 className={styles.heading2}>Find Your Local UV Index</h2>
+      <p className={styles.paragraph}>
+        Enter your location below to get the latest UV Index data and personalized sun protection tips. Stay informed and stay safe in the sun!
+      </p>
+      <div className={styles.locationBoxWrapper}>
+        <LocationBox />
+      </div>
+    </div>
+  );
+};
 
 export default Home;

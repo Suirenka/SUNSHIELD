@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
   LineChart,
@@ -9,15 +9,12 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Dropdown, Option, Tooltip, Button, Spinner } from "@fluentui/react-components";
+import { Dropdown, Option, Button, Spinner } from "@fluentui/react-components";
 import UVInfoTable from "../components/UVInfoTable";
 import UVIndexBar from "../components/UVInfo/UVIndexBar";
-import { ToggleButton, TooltipProps } from "@fluentui/react-components";
-import { bundleIcon, ServiceBellFilled, ServiceBellRegular } from "@fluentui/react-icons";
 
-const ServiceBell = bundleIcon(ServiceBellFilled, ServiceBellRegular);
 
-const TrendsPage = (props: Partial<TooltipProps>) => {
+const TrendsPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const locationParam = searchParams.get("location")?.toUpperCase() || "MELBOURNE";
@@ -116,14 +113,6 @@ const TrendsPage = (props: Partial<TooltipProps>) => {
       <UVInfoTable location={locationParam} uvIndex={uvIndex} />
 
 
-      <Tooltip content="Turn On/Off Reminder for Going Out" relationship="label" {...props}>
-        <ToggleButton
-          appearance="outline"
-          icon={<ServiceBell />}
-        >
-          Reminder
-        </ToggleButton>
-      </Tooltip>
 
       <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
         {/* Back to Home + Time Range Selection */}

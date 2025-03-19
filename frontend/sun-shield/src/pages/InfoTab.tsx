@@ -1,9 +1,16 @@
-import { Text, Table, TableBody, TableRow, TableCell } from '@fluentui/react-components';
+import { Text, Table, TableBody, TableRow, TableCell, Button } from '@fluentui/react-components';
 import { Stack } from '@fluentui/react';
+import { useNavigate } from 'react-router-dom';
 
 const InfoTab = () => {
+  const navigate = useNavigate();
   return (
+    <>
+    <Button appearance="primary" onClick={() => navigate("/")}>
+      ← Back to Home
+    </Button>
     <Stack tokens={{ padding: '20px', childrenGap: '20px' }} style={{ maxWidth: '800px', margin: 'auto' }}>
+      
       <Table
         style={{
           width: '100%',
@@ -96,6 +103,7 @@ const InfoTab = () => {
         </TableBody>
       </Table>
     </Stack>
+    </>
   );
 };
 
