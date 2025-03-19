@@ -87,8 +87,8 @@ def postcodes_file():
 def favicon():
     return send_from_directory(
         os.path.join(app.root_path, "static"),
-        "sunny_icon.svg",
-        mimetype="image/svg+xml",
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
     )
 
 @app.route("/get_uv", methods=["GET"])
