@@ -3,14 +3,23 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
 import type { SearchBoxProps } from "@fluentui/react-components";
-import { Field, SearchBox, Listbox, Option, Button } from "@fluentui/react-components";
+import {
+  Field,
+  SearchBox,
+  Listbox,
+  Option,
+  Button,
+} from "@fluentui/react-components";
 
 // Define props interface
 interface LocationBoxProps extends SearchBoxProps {
   onLocationChange?: (location: string) => void;
 }
 
-const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props }) => {
+const LocationBox: React.FC<LocationBoxProps> = ({
+  onLocationChange,
+  ...props
+}) => {
   const [inputValue, setInputValue] = useState("");
   const [cities, setCities] = useState<string[]>([]);
   const [filteredCities, setFilteredCities] = useState<string[]>([]);
@@ -28,7 +37,9 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
         const workbook = XLSX.read(arrayBuffer, { type: "array" });
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const jsonData: any[] = XLSX.utils.sheet_to_json(sheet);
-        const cityList = jsonData.map((row) => row.Locality?.trim()).filter(Boolean) as string[];
+        const cityList = jsonData
+          .map((row) => row.Locality?.trim())
+          .filter(Boolean) as string[];
         setCities(Array.from(new Set(cityList)));
       } catch (error) {
         console.error("Error loading cities:", error);
@@ -38,12 +49,19 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
   }, []);
 
   // Handle user input change
-  const handleInputChange = (event: React.SyntheticEvent, data: { value: string }) => {
-    const value = data.value.replace(/[^a-zA-Z0-9 ]/g, ""); 
+  const handleInputChange = (
+    event: React.SyntheticEvent,
+    data: { value: string }
+  ) => {
+    const value = data.value.replace(/[^a-zA-Z0-9 ]/g, "");
     setInputValue(value);
 
     if (value) {
-      setFilteredCities(cities.filter((city) => city.toLowerCase().includes(value.toLowerCase())));
+      setFilteredCities(
+        cities.filter((city) =>
+          city.toLowerCase().includes(value.toLowerCase())
+        )
+      );
       setShowDropdown(true);
     } else {
       setShowDropdown(false);
@@ -54,7 +72,7 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
   const handleCitySelect = (city: string) => {
     setInputValue(city);
     setShowDropdown(false);
-    
+
     // Notify parent component (Home.tsx) about location change
     if (onLocationChange) {
       onLocationChange(city);
@@ -67,7 +85,7 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
 
     const now = Date.now();
     if (lastSearchTime && now - lastSearchTime > 10000) {
-      setSearchCount(0); 
+      setSearchCount(0);
     }
 
     if (searchCount >= 3) {
@@ -87,8 +105,21 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
   };
 
   return (
-    <Field>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", position: "relative" }}>
+    <Field
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
         <SearchBox
           {...props}
           value={inputValue}
@@ -98,32 +129,37 @@ const LocationBox: React.FC<LocationBoxProps> = ({ onLocationChange, ...props })
           placeholder="Enter Location"
         />
 
-        <Button onClick={handleSearch}>Search</Button>
-
-        {showDropdown && (
-          <Listbox
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              width: "100%",
-              background: "white",
-              border: "1px solid #ccc",
-              zIndex: 10,
-            }}
-          >
-            {filteredCities.length > 0 ? (
-              filteredCities.map((city) => (
-                <Option key={city} onClick={() => handleCitySelect(city)}>
-                  {city}
-                </Option>
-              ))
-            ) : (
-              <Option disabled>No cities found</Option>
-            )}
-          </Listbox>
-        )}
+        <Button
+          style={{ backgroundColor: "orange", color: "white" }}
+          onClick={handleSearch}
+        >
+          Search
+        </Button>
       </div>
+
+      {showDropdown && (
+        <Listbox
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            width: "100%",
+            background: "white",
+            border: "1px solid #ccc",
+            zIndex: 10,
+          }}
+        >
+          {filteredCities.length > 0 ? (
+            filteredCities.map((city) => (
+              <Option key={city} onClick={() => handleCitySelect(city)}>
+                {city}
+              </Option>
+            ))
+          ) : (
+            <Option disabled>No cities found</Option>
+          )}
+        </Listbox>
+      )}
     </Field>
   );
 };

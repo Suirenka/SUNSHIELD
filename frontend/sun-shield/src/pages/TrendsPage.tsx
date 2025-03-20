@@ -16,7 +16,8 @@ import UVIndexBar from "../components/UVInfo/UVIndexBar";
 const TrendsPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const locationParam = searchParams.get("location")?.toUpperCase() || "MELBOURNE";
+  const locationParam =
+    searchParams.get("location")?.toUpperCase() || "MELBOURNE";
 
   const [uvData, setUvData] = useState<{ date: string; uvIndex: number }[]>([]);
   const [timeRange, setTimeRange] = useState("weekly");
@@ -73,14 +74,20 @@ const TrendsPage = () => {
 
             // ⚠️ High UV index warning
             if (uvIndexValue > 6) {
-              setUvWarning("⚠️ High UV Index! Reduce outdoor exposure and take precautions!");
+              setUvWarning(
+                "⚠️ High UV Index! Reduce outdoor exposure and take precautions!"
+              );
             }
 
             // 🧴 Sunscreen reminder
             if (uvIndexValue > 8) {
-              setSunscreenReminder("🔥 Extreme risk! Avoid prolonged outdoor activities!");
+              setSunscreenReminder(
+                "🔥 Extreme risk! Avoid prolonged outdoor activities!"
+              );
             } else if (uvIndexValue > 6) {
-              setSunscreenReminder("🧴 Apply sunscreen immediately and take protective measures!");
+              setSunscreenReminder(
+                "🧴 Apply sunscreen immediately and take protective measures!"
+              );
             } else if (uvIndexValue > 3) {
               setSunscreenReminder("☀️ Consider applying sunscreen!");
             }
@@ -136,7 +143,9 @@ const TrendsPage = () => {
           </Button>
 
           <Dropdown
-            onOptionSelect={(event, data) => setTimeRange(data.optionValue || "weekly")}
+            onOptionSelect={(event, data) =>
+              setTimeRange(data.optionValue || "weekly")
+            }
             value={timeRange}
           >
             <Option value="weekly">Last 7 Days</Option>

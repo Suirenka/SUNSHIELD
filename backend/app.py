@@ -144,6 +144,10 @@ def sunset_1():
 def sunset_2():
     return handle_picture_request("sunset_2.jpeg")
 
+@app.route("/protection_img.jpeg")
+def sunset_2():
+    return handle_picture_request("protection_img.jpeg")
+
 @app.route("/sunset_bg.jpeg")
 def sunset_bg():
     return handle_picture_request("sunset_bg.jpeg")

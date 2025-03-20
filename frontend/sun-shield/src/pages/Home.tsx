@@ -7,7 +7,7 @@ import {
   Subtitle1,
   Body1,
   Button,
-  Divider
+  Divider,
 } from "@fluentui/react-components";
 import LocationBox from "../components/LocationBox";
 import { useNavigate } from "react-router-dom";
@@ -80,6 +80,11 @@ const useStyles = makeStyles({
     marginBottom: "1rem",
     maxWidth: "500px",
   },
+  intro: {
+    marginTop: "1rem",
+    maxWidth: "500px",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.6)",
+  },
   buttonRow: {
     display: "flex",
     gap: "1rem",
@@ -115,7 +120,16 @@ const Banner = () => {
   return (
     <div className={styles.Container}>
       <Title1 className={styles.title}>Sunshield</Title1>
-      <Subtitle1 className={styles.subtitle}>Stay Safe Under the Sun!</Subtitle1>
+      <Subtitle1 className={styles.subtitle}>
+        Stay Safe Under the Sun!
+      </Subtitle1>
+      <Body1 className={styles.intro}>
+        The sun brightens our days, lifts our spirits, and gives us that golden
+        glow. But beneath its radiant light lies an invisible threat: UV
+        radiation. You can’t see or feel it. Yet, it can damage your skin in
+        minutes, leading to sunburn, premature aging, and even long-term health
+        risks like skin cancer.
+      </Body1>
     </div>
   );
 };
@@ -128,11 +142,13 @@ const UvRisksBox = () => {
       <div className={styles.leftColumn}>
         <Title1 className={styles.risksTitle}>UV Risks</Title1>
         <Body1 className={styles.risksParagraph}>
-          Prolonged exposure to UV rays can cause sunburn, premature aging, and even skin cancer. It is crucial to protect yourself whenever you are outdoors.
+          Prolonged exposure to UV rays can cause sunburn, premature aging, and
+          even skin cancer. It is crucial to protect yourself whenever you are
+          outdoors.
         </Body1>
         <div className={styles.buttonRow}>
           <Button appearance="primary" onClick={() => navigate("/infotab")}>
-            Learn More
+            Learn More about UV Risk
           </Button>
         </div>
       </div>
@@ -149,16 +165,21 @@ const ProtectionBox = () => {
   return (
     <div className={styles.infoSection}>
       <div className={styles.rightColumn}>
-        <img src="/sunset_2.jpeg" alt="Protection" className={styles.infoImage} />
+        <img
+          src="/protection_img.jpeg"
+          alt="Protection"
+          className={styles.infoImage}
+        />
       </div>
       <div className={styles.leftColumn}>
         <Title1 className={styles.risksTitle}>Protection</Title1>
         <Body1 className={styles.risksParagraph}>
-          Protect yourself by checking the UV index before heading out. Wear sunscreen, put on protective clothing, and seek shade when needed.
+          Protect yourself by checking the UV index before heading out. Wear
+          sunscreen, put on protective clothing, and seek shade when needed.
         </Body1>
         <div className={styles.buttonRow}>
           <Button appearance="primary" onClick={() => navigate("/protection")}>
-            Learn More
+            Learn More about Sun Protection
           </Button>
         </div>
       </div>
@@ -166,19 +187,21 @@ const ProtectionBox = () => {
   );
 };
 
-const LocationSearch = () => {
+function LocationSearch() {
   const styles = useStyles();
   return (
     <div className={styles.locationContainer}>
       <h2 className={styles.heading2}>Find Your Local UV Index</h2>
       <p className={styles.paragraph}>
-        Enter your location below to get the latest UV Index data and personalized sun protection tips. Stay informed and stay safe in the sun!
+        Enter your location below to get the latest UV Index data and
+        personalized sun protection tips. Stay informed and stay safe in the
+        sun!
       </p>
       <div className={styles.locationBoxWrapper}>
         <LocationBox />
       </div>
     </div>
   );
-};
+}
 
 export default Home;

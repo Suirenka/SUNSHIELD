@@ -1,11 +1,16 @@
-import { Text } from '@fluentui/react-components';
-import { Stack } from '@fluentui/react';
+import { Text } from "@fluentui/react-components";
 
 const TermsAndCondition = () => {
   return (
-    <Stack
-      tokens={{ padding: '20px', childrenGap: '20px' }}
-      style={{ maxWidth: '800px', margin: 'auto' }}
+    <div
+      style={{
+        maxWidth: "800px",
+        margin: "auto",
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+      }}
     >
       <Text as="h1" weight="semibold" size={600}>
         Terms and Conditions
@@ -18,13 +23,14 @@ const TermsAndCondition = () => {
         1. Introduction
       </Text>
       <Text as="p" size={400}>
-        Welcome to SunShield. By accessing or using our services, you agree to be bound by the following Terms and Conditions.
+        Welcome to SunShield. By accessing or using our services, you agree to
+        be bound by the following Terms and Conditions.
       </Text>
 
       <Text as="h2" weight="semibold" size={500}>
         2. Use of Services
       </Text>
-      <ul style={{ paddingLeft: '20px' }}>
+      <ul style={{ paddingLeft: "20px", margin: 0 }}>
         <li>
           <Text as="p" size={400}>
             You may use SunShield for personal, non-commercial purposes.
@@ -32,12 +38,14 @@ const TermsAndCondition = () => {
         </li>
         <li>
           <Text as="p" size={400}>
-            Misuse, modification, or disruption of the service is strictly prohibited.
+            Misuse, modification, or disruption of the service is strictly
+            prohibited.
           </Text>
         </li>
         <li>
           <Text as="p" size={400}>
-            SunShield provides general sun protection advice, but it should not be considered as medical advice.
+            SunShield provides general sun protection advice, but it should not
+            be considered as medical advice.
           </Text>
         </li>
       </ul>
@@ -46,9 +54,10 @@ const TermsAndCondition = () => {
         3. Limitation of Liability
       </Text>
       <Text as="p" size={400}>
-        While we strive to provide accurate UV index data and recommendations, SunShield is not responsible for:
+        While we strive to provide accurate UV index data and recommendations,
+        SunShield is not responsible for:
       </Text>
-      <ul style={{ paddingLeft: '20px' }}>
+      <ul style={{ paddingLeft: "20px", margin: 0 }}>
         <li>
           <Text as="p" size={400}>
             Any health-related outcomes resulting from sun exposure.
@@ -70,16 +79,19 @@ const TermsAndCondition = () => {
         4. Privacy and Data Collection
       </Text>
       <Text as="p" size={400}>
-        Your privacy is important to us. By using our services, you agree to the collection and usage of data as outlined in our Privacy Policy.
+        Your privacy is important to us. By using our services, you agree to the
+        collection and usage of data as outlined in our Privacy Policy.
       </Text>
 
       <Text as="h2" weight="semibold" size={500}>
         5. Changes to Terms
       </Text>
       <Text as="p" size={400}>
-        We reserve the right to update these Terms and Conditions at any time. Continued use of our services after updates constitutes acceptance of the changes.
+        We reserve the right to update these Terms and Conditions at any time.
+        Continued use of our services after updates constitutes acceptance of
+        the changes.
       </Text>
-    </Stack>
+    </div>
   );
 };
 

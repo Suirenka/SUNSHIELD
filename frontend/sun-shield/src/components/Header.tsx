@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { WeatherSunnyLow24Color } from "@fluentui/react-icons";
+import { makeStyles, shorthands } from "@fluentui/react-components";
+import { WeatherSunnyLow24Filled } from "@fluentui/react-icons";
+// ^ Adjust this import if you prefer a different icon variant, e.g. WeatherSunnyLow24Regular
 
-const useStyles = makeStyles(() => ({
+const useHeaderStyles = makeStyles({
   header: {
-    background: "#E8C33080",
-    padding: "1rem",
-    display: "flex", // Enables horizontal layout
-    alignItems: "center", // Vertically align items
-    justifyContent: "space-between", // Spreads items across the header
+    backgroundColor: "#E8C33080",
+    ...shorthands.padding("1rem"),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   brand: {
     display: "flex",
@@ -17,23 +18,23 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
   },
   title: {
-    margin: 0,
+    margin: "0",
   },
   icon: {
     color: "orange",
     marginLeft: "8px",
   },
-}));
+});
 
-const Header = () => {
+const Header: React.FC = () => {
   const navigate = useNavigate();
-  const classes = useStyles();
+  const styles = useHeaderStyles();
 
   return (
-    <header className={classes.header}>
-      <div className={classes.brand} onClick={() => navigate("/")}>
-        <h1 className={classes.title}>SunShield</h1>
-        <WeatherSunnyLow24Color className={classes.icon} />
+    <header className={styles.header}>
+      <div className={styles.brand} onClick={() => navigate("/")}>
+        <h1 className={styles.title}>SunShield</h1>
+        <WeatherSunnyLow24Filled className={styles.icon} />
       </div>
     </header>
   );
